@@ -2,6 +2,8 @@ package ru.gb.spring.market.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import ru.gb.spring.market.converters.CartItemConverter;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
+@Component
 public class Cart {
     private CartItemConverter cartItemConverter;
 
@@ -51,5 +54,9 @@ public class Cart {
                 .orElseThrow(() -> new RuntimeException("Невозможно удалить продукт."));
 
         cartItems.remove(cartItem);
+    }
+
+    public void clearCart() {
+        cartItems.clear();
     }
 }

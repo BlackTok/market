@@ -27,4 +27,8 @@ public class CartService {
     public void deleteProduct(Long id) {
         cart.delete(id);
     }
+
+    public void clearCart() {
+        cart.clearCart();
+    }
 }

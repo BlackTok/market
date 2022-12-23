@@ -19,7 +19,7 @@ public class Warehouse {
     private Long productId;
 
     @Column(name = "amount")
-    private Integer amount;
+    private Double amount;
 
     @OneToOne(mappedBy = "warehouse")
     @JsonIgnore

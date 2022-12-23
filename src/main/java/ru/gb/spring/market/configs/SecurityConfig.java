@@ -38,6 +38,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests()
+                .requestMatchers("/h2-console/**")
+                .permitAll()
                 .requestMatchers("/")
                 .permitAll()
                 .requestMatchers(("/products/**"))
@@ -66,12 +68,18 @@ public class SecurityConfig {
                 .formLogin()
                 .and()
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
                 .build();
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/auth");
+        return web -> web
+                .ignoring().requestMatchers("/auth")
+                .and()
+                .ignoring().requestMatchers("/h2-console/**");
     }
 
     @Bean UserDetailsService userDetailsService() {
